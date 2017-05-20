@@ -23,7 +23,7 @@ gsettings set org.cinnamon.desktop.interface icon-theme $(cat ./icon-theme)
 gsettings set org.cinnamon.desktop.wm.preferences theme $(cat ./wm-theme)
 
 echo "Applying Theme Settings"
-gsettings set org.cinnamon.desktop.wm.preferences button-layout $(cat ./wm-layout)
+gsettings set gsettings get org.cinnamon.muffin button-layout $(cat ./wm-layout)
 gsettings set gsettings set org.cinnamon.desktop.interface gtk-decoration-layout $(cat ./gtk-layout)
 
 echo "Applying Applets Layout"
