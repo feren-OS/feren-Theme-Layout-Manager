@@ -39,3 +39,11 @@ gsettings set org.cinnamon panels-height $(cat ./panels-h)
 gsettings set org.cinnamon panels-resizable $(cat ./panels-r)
 gsettings set org.cinnamon panels-scale-text-icons $(cat ./panels-sti)
 
+WHOAMI=$(whoami)
+for foldr in "/home/$WHOAMI/.feren-layout-backups/$NAME/thing-configs/"; do
+        cd "$foldr"
+	cp -R * ~/.cinnamon/configs/${foldr##*/}/
+	cd ~/.feren-layout-backups
+	cd "$FILE"
+    done
+
