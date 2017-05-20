@@ -8,6 +8,10 @@ if [ -d "./$NAME" ]; then
 	rm -rf "./$NAME"
 fi
 mkdir "./$NAME"
+if [ ! -d "./$NAME" ]; then
+	/usr/bin/zenity --error --title="" --text "An Error Occured Creating this theme, please make sure not to use '/' in the name of the folder."
+	exit 0
+fi
 cd "./$NAME"
 echo "Backing Up Applets Layout"
 touch "applets"
