@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [ ! -d ~/.feren-layout-backups ]; then
+	/usr/bin/zenity --error --title="" --text "You must save a theme layout first before using this application, run 'feren-theme-saver' first."
+	exit 0
+fi
+NAME=$(zenity --entry --title="Theme Loader" --text="Enter the name of the theme layout to apply:\n")
+if [ -z "$NAME" ]; then
+	/usr/bin/zenity --error --title="" --text "Please Enter The Name Of The Layout First."
+	exit 0
+fi
+cd ~/.feren-layout-backups
+if [ ! -d "./$NAME" ]; then
+	/usr/bin/zenity --error --title="" --text "Theme Layout '$NAME' not found, Exiting."
+	exit 0
+fi
+cd "./$NAME"
+echo "Applying Theme"
+gsettings set org.cinnamon.theme name $(cat ./cinn-theme)
+gsettings set org.cinnamon.desktop.interface cursor-theme $(cat ./cur-theme)
+gsettings set org.cinnamon.desktop.interface gtk-theme $(cat ./gtk-theme)
+gsettings set org.cinnamon.desktop.interface icon-theme $(cat ./icon-theme)
+gsettings set org.cinnamon.desktop.wm.preferences theme $(cat ./wm-theme)
+
+echo "Applying Theme Settings"
+gsettings set org.cinnamon.desktop.wm.preferences button-layout $(cat ./wm-layout)
+gsettings set gsettings get org.cinnamon.desktop.interface gtk-decoration-layout $(cat ./gtk-layout)
+
