@@ -24,5 +24,18 @@ gsettings set org.cinnamon.desktop.wm.preferences theme $(cat ./wm-theme)
 
 echo "Applying Theme Settings"
 gsettings set org.cinnamon.desktop.wm.preferences button-layout $(cat ./wm-layout)
-gsettings set gsettings get org.cinnamon.desktop.interface gtk-decoration-layout $(cat ./gtk-layout)
+gsettings set gsettings set org.cinnamon.desktop.interface gtk-decoration-layout $(cat ./gtk-layout)
+
+echo "Applying Applets Layout"
+gsettings set org.cinnamon enabled-applets $(cat ./applets)
+echo "Applying Extensions"
+gsettings set org.cinnamon enabled-extensions $(cat ./extensions)
+echo "Applying Favourite Applications"
+gsettings set org.cinnamon favorite-apps $(cat ./fav-apps)
+echo "Applying Panels"
+gsettings set org.cinnamon panels-enabled $(cat ./panels)
+gsettings set org.cinnamon panels-autohide $(cat ./panels-ah)
+gsettings set org.cinnamon panels-height $(cat ./panels-h)
+gsettings set org.cinnamon panels-resizable $(cat ./panels-r)
+gsettings set org.cinnamon panels-scale-text-icons $(cat ./panels-sti)
 
