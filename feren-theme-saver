@@ -53,6 +53,6 @@ mkdir "./thing-configs"
 cp -R ~/.cinnamon/configs/* "./thing-configs"
 
 echo ""
-echo "Done, Theme Layout was backed up as '$NAME'."
+zenity --info --text="Done, Theme Layout was backed up as '$NAME'." --title="Theme Saver" --icon-name=cs-panel
 
 fi
