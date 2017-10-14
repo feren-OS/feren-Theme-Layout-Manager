@@ -1,0 +1,9 @@
+[Desktop Entry]
+Icon=cs-themes
+Exec=feren-theme-saver
+Type=Application
+OnlyShowIn=X-Cinnamon;
+Categories=Settings;
+Name=Save your Current Layout
+Comment=The tool you've all been waiting for, a Themer-theme-like Saver and Loader, is here!
+Keywords=panel;theme;themer;feren;saver;

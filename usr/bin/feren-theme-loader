@@ -1,0 +1,62 @@
+#!/bin/bash
+
+if [ ! -d ~/.feren-layout-backups ]; then
+	/usr/bin/zenity --error --title="" --text "You must save a theme layout first before using this application, run 'feren-theme-saver' first."
+	exit 0
+fi
+
+for file in ~/.feren-layout-backups/*; do
+	if [ -z "$THEMELST" ]; then
+		THEMELST="${file##*/}"
+	else
+		THEMELST="$THEMELST
+${file##*/}"
+	fi
+done
+/usr/bin/zenity --info --title="" --text "Current Backed Up Layouts:\n$THEMELST" &
+sleep 1
+
+NAME="$(zenity --entry --title="Theme Loader" --text="Enter the name of the theme layout to apply:\n")"
+if [ -z "$NAME" ]; then
+	/usr/bin/zenity --error --title="" --text "Please Enter The Name Of The Layout First."
+	exit 0
+fi
+cd ~/.feren-layout-backups
+if [ ! -d "./$NAME" ]; then
+	/usr/bin/zenity --error --title="" --text "Theme Layout '$NAME' not found, Exiting."
+	exit 0
+fi
+cd "./$NAME"
+echo "Applying Theme"
+gsettings set org.cinnamon.theme name "$(cat ./cinn-theme)"
+gsettings set org.cinnamon.desktop.interface cursor-theme "$(cat ./cur-theme)"
+gsettings set org.cinnamon.desktop.interface gtk-theme "$(cat ./gtk-theme)"
+gsettings set org.cinnamon.desktop.interface icon-theme "$(cat ./icon-theme)"
+gsettings set org.cinnamon.desktop.wm.preferences theme "$(cat ./wm-theme)"
+
+echo "Applying Theme Settings"
+gsettings set org.cinnamon.muffin button-layout "$(cat ./wm-layout)"
+gsettings set org.cinnamon.desktop.interface gtk-decoration-layout "$(cat ./gtk-layout)"
+
+echo "Applying Applets Layout"
+gsettings set org.cinnamon enabled-applets "$(cat ./applets)"
+echo "Applying Extensions"
+gsettings set org.cinnamon enabled-extensions "$(cat ./extensions)"
+echo "Applying Favourite Applications"
+gsettings set org.cinnamon favorite-apps "$(cat ./fav-apps)"
+echo "Applying Panels"
+gsettings set org.cinnamon panels-enabled "$(cat ./panels)"
+gsettings set org.cinnamon panels-autohide "$(cat ./panels-ah)"
+gsettings set org.cinnamon panels-height "$(cat ./panels-h)"
+gsettings set org.cinnamon panels-resizable "$(cat ./panels-r)"
+gsettings set org.cinnamon panels-scale-text-icons "$(cat ./panels-sti)"
+
+WHOAMI="$(whoami)"
+for foldr in "/home/$WHOAMI/.feren-layout-backups/$NAME/thing-configs/"; do
+        cd "$foldr"
+	cp -R * ~/.cinnamon/configs/${foldr##*/}/
+	cd ~/.feren-layout-backups
+	cd "$FILE"
+    done
+
+cinnamon --replace &
